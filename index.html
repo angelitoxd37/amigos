@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Salimos por una chela? 🍺</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+</head>
+<body>
+    <div class="contenedor">
+        <div class="titulo">
+            <h1>¿Una chiqui? 🍻</h1>
+        </div>
+        <div class="opciones">
+            <button id="si" class="btn">🍺 ¡Sí, de una!</button>
+            <button id="no" class="btn">❌ Hoy paso...</button>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            // Cuando el usuario intenta presionar el botón "No"
+            $("#no").on("mouseover touchstart", function (event) {
+                event.preventDefault();
+                let ancho = $(window).width() - $(this).outerWidth();
+                let alto = $(window).height() - $(this).outerHeight();
+                let nuevaX = Math.random() * ancho;
+                let nuevaY = Math.random() * alto;
+
+                $(this).css({
+                    position: "absolute",
+                    left: nuevaX + "px",
+                    top: nuevaY + "px"
+                });
+            });
+
+            // Si presiona "Sí", muestra mensaje y lluvia de cervezas
+            $("#si").on("click", function () {
+                alert("¡Sabía que dirías que sí! 🍻");
+                generarCervezas();
+            });
+
+            // Función para hacer llover cervezas
+            function generarCervezas() {
+                for (let i = 0; i < 20; i++) {
+                    let cerveza = $("<div class='cerveza'>🍺</div>");
+                    $("body").append(cerveza);
+
+                    let startX = Math.random() * $(window).width();
+                    let duration = Math.random() * 3 + 2;
+
+                    cerveza.css({
+                        left: startX + "px",
+                        animationDuration: duration + "s"
+                    });
+
+                    setTimeout(() => cerveza.remove(), duration * 1000);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
+
